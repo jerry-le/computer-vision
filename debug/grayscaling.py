@@ -39,4 +39,4 @@ def convert_brg2red():
     cv2.destroyAllWindows()
 
 
-convert_brg2red()
+convert_brg2gray()
