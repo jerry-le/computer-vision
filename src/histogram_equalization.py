@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
-from plot_histogram import *
+from general import show_image
+
 
 image = cv2.imread('../images/wiki.jpg')
 image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
@@ -39,4 +39,3 @@ def cv2_equalize_hist(image):
 
 
 manual_histogram_equalization(image)
-# cv2_equalize_hist(image)
