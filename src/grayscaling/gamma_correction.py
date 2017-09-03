@@ -2,7 +2,7 @@
 Gamma correction is an basic gray level transformation
 Formula:
 
-    X = 255 - (X / 255) ^ y
+    X = 255 * (X / 255) ^ y
 
     X: The intensive in each pixel
     255: The max level intensive of image
