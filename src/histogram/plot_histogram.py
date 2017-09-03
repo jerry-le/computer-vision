@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-image = cv2.imread('../images/image.jpg')
+image = cv2.imread('../../images/wiki.jpg')
 image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
 
 
@@ -46,6 +46,6 @@ def show_each_channel_histogram(image):
     plt.show()
 
 
-use_calc_hist_in_cv2_function(image)
+# use_calc_hist_in_cv2_function(image)
 # calc_manual_by_for_loop(image)
 # show_each_channel_histogram(image)
