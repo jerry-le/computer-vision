@@ -2,8 +2,6 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-# image = cv2.imread('../images/image.jpg')
-# image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
 
 def show_image(image):
     cv2.imshow('image', image)
