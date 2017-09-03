@@ -1,5 +1,6 @@
 import cv2
-from general import show_image
+
+from __utils__.general import show_image
 
 image = cv2.imread('../images/image.jpg')
 

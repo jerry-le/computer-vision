@@ -4,7 +4,8 @@ Find the differences between 2 gray images by subtracting
 
 import cv2
 import numpy as np
-from general import show_image
+
+from __utils__.general import show_image
 
 # Read and convert to gray image
 left = cv2.imread('../images/right_2.jpg')
