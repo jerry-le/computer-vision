@@ -1,6 +1,6 @@
 # Computer vision demo
 
-## Available content
+## Content
 
 ### Load video
 * Load video from cammera 
@@ -23,4 +23,6 @@
 * Histogram equalization (gray image, RGB image)
 * [Coming soon] Histogram matching (histogram specialization) 
 
+## Mini projects
+* Sketch: detect edges from camera
 

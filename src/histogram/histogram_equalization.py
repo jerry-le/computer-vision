@@ -41,4 +41,4 @@ def cv2_equalize_hist(image):
 
 
 # manual_histogram_equalization(image)
-cv2_equalize_hist(image)
+# cv2_equalize_hist(image)
