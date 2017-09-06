@@ -3,7 +3,7 @@
 ## Content
 
 ### Load video
-* Load video from cammera 
+* Load video from camera
 * Load video from file
 
 ### Grayscaling
@@ -21,8 +21,11 @@
 ### Histogram
 * Visualize histogram chart
 * Histogram equalization (gray image, RGB image)
-* [Coming soon] Histogram matching (histogram specialization) 
 
 ## Mini projects
 * Sketch: detect edges from camera
 
+
+## TODO
+* [pending] Histogram matching (histogram specialization)
+* Median, Min, Max Filtering with window 3x3
