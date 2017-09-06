@@ -72,4 +72,4 @@ def gaussian_blur():
 # blur(k=3)
 # embossing(k=3)
 # sharpening()
-gaussian_blur()
+# gaussian_blur()
