@@ -22,10 +22,13 @@
 * Visualize histogram chart
 * Histogram equalization (gray image, RGB image)
 
+### Convolutions
+- Sobel mask to detect edge
+- Medium, min, max fitering
+
 ## Mini projects
 * Sketch: detect edges from camera
 
 
 ## TODO
 * [pending] Histogram matching (histogram specialization)
-* Median, Min, Max Filtering with window 3x3
