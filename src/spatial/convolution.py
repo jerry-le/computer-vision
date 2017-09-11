@@ -40,7 +40,8 @@ def embossing(image=None, k=None):
 
     # Create mask matrix
     mask = np.zeros((2 * k + 1, 2 * k + 1))
-    mask[k, k] = 1
+    mask[0, 0] = -1
+    mask[2 * k, 2 * k] = 1
 
     out = convolution(image, mask)
     res = np.hstack((image, out))
@@ -70,6 +71,6 @@ def gaussian_blur():
 
 
 # blur(k=3)
-# embossing(k=3)
+embossing(k=2)
 # sharpening()
 # gaussian_blur()
