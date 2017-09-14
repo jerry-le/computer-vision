@@ -24,6 +24,11 @@
 .idea/gradle.xml
 .idea/libraries
 
+# Pycached
+src/__utils__/__pycache__/
+src/spatial/__pycache__/
+
+
 # Mongo Explorer plugin:
 .idea/mongoSettings.xml
 

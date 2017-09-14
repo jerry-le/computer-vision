@@ -2,8 +2,6 @@ import cv2
 
 from __utils__.general import show_image
 
-image = cv2.imread('../images/image.jpg')
-
 
 def convert_brg2gray(image):
     """
@@ -60,6 +58,8 @@ def convert_brg2individual_channel(image, channel):
         return R
 
 
+image = cv2.imread('../../images/elena.jpg')
+
 show_image(
-    convert_brg2sub_channel(image, 'R')
+    convert_brg2gray(image)
 )
