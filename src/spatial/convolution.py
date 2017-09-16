@@ -9,6 +9,7 @@ def convolution(image, mask):
     height = image.shape[0]
     width = image.shape[1]
     k = (len(mask) - 1) / 2
+    k = int(k)
     sum_mask = np.ravel(mask).sum()
     sum_mask = 1 if sum_mask == 0 else sum_mask
 
@@ -70,7 +71,7 @@ def gaussian_blur():
     show_image(res)
 
 
-# blur(k=3)
-embossing(k=2)
+blur(k=3)
+# embossing(k=2)
 # sharpening()
 # gaussian_blur()

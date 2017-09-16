@@ -24,7 +24,11 @@
 
 ### Convolutions
 - Sobel mask to detect edge
-- Medium, min, max fitering
+- Medium, min, max filtering
+
+### Geometric
+- Scaling image by Nearest Neighbor approach
+
 
 ## Mini projects
 * Sketch: detect edges from camera
