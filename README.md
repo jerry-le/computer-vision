@@ -36,4 +36,5 @@
 
 
 ## TODO
-* [pending] Histogram matching (histogram specialization)
+- [] Histogram matching (histogram specialization)
+- [] Geometric image
