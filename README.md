@@ -28,6 +28,7 @@
 
 ### Geometric
 - Scaling image by Nearest Neighbor approach
+- Transforming image
 
 
 ## Mini projects
