@@ -26,6 +26,6 @@ def transform(image, delta_x=0, delta_y=0):
 
 
 image = cv2.imread('../../images/elena.jpg', 0)
-out = transform(image, 100, 100)
+out = transform(image, 100, -100)
 res = np.hstack((image, out))
 show_image(res)
