@@ -38,11 +38,11 @@ def manual_rotate():
     show_image(out)
 
 
-def opencv_rotate():
+def opencv_rotate(theta):
     image = cv2.imread('../../images/brain.png', 0)
     rows, cols = image.shape
-    M = cv2.getRotationMatrix2D((rows/2, cols/2), 45, 1)
+    M = cv2.getRotationMatrix2D((rows/2, cols/2), theta, 1)
     dst = cv2.warpAffine(image, M, (cols, rows))
     show_image(dst)
 
-opencv_rotate()
+opencv_rotate(45)
