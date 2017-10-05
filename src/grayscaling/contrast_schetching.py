@@ -34,5 +34,5 @@ def contrast_schetching(image):
     return image_gray
 
 
-res = np.hstack((image, contrast_schetching(image)))
-show_image(res)
+# res = np.hstack((image, contrast_schetching(image)))
+# show_image(res)

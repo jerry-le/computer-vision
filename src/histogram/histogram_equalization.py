@@ -2,9 +2,6 @@ import cv2
 import numpy as np
 from __utils__.general import show_image
 
-image = cv2.imread('../../images/wiki.jpg')
-image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-
 
 def manual_histogram_equalization(image):
     # Calc the histogram of image
@@ -40,5 +37,7 @@ def cv2_equalize_hist(image):
     show_image(res)
 
 
-manual_histogram_equalization(image)
+image = cv2.imread('../../images/wiki.jpg')
+image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+# manual_histogram_equalization(image)
 # cv2_equalize_hist(image)

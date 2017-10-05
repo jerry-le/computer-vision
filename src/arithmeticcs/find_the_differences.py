@@ -7,18 +7,20 @@ import numpy as np
 
 from __utils__.general import show_image
 
-# Read and convert to gray image
-left = cv2.imread('../images/right_2.jpg')
-left = cv2.cvtColor(left, cv2.COLOR_RGB2GRAY)
-
-# Read and convert to gray image
-right = cv2.imread('../images/right.jpg')
-right = cv2.cvtColor(right, cv2.COLOR_RGB2GRAY)
 
 # Get the subtraction
-sub_matrix = left - right
+def subtract_2_images(im_left, im_right):
+    return im_left - im_right
 
-# Stack input and output to view easier
-res = np.hstack((left, right, sub_matrix))
 
-show_image(res, name='The differences')
+def test():
+    # Read and convert to gray image
+    left = cv2.imread('../../images/right_2.jpg', 0)
+
+    # Read and convert to gray image
+    right = cv2.imread('../../images/right.jpg', 0)
+
+    # Stack input and output to view easier
+    res = np.hstack((left, right, subtract_2_images(left, right)))
+
+    show_image(res, name='The differences')

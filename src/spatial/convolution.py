@@ -10,6 +10,7 @@ def convolution(image, mask):
     width = image.shape[1]
     k = (len(mask) - 1) / 2
     k = int(k)
+
     sum_mask = np.ravel(mask).sum()
     sum_mask = 1 if sum_mask == 0 else sum_mask
 
@@ -17,8 +18,8 @@ def convolution(image, mask):
     for i in range(k, height - k):
         for j in range(k, width - k):
             sum = 0
-            for m in range(-k, k):
-                for n in range(-k, k):
+            for m in range(-k, k + 1):
+                for n in range(-k, k + 1):
                     sum = sum + image[i + m][j + n] * mask[k + m][k + n]
             out[i][j] = sum / sum_mask
     return out
@@ -60,18 +61,15 @@ def sharpening(image=None):
     show_image(res)
 
 
-def gaussian_blur():
-    image = cv2.imread('../../images/elena.jpg')
-    image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+def gaussian_blur(image):
     mask = [[1, 2, 1],
             [2, 4, 2],
             [1, 2, 1]]
     out = convolution(image, mask)
-    res = np.hstack((image, out))
-    show_image(res)
+    return out
 
 
-blur(k=3)
+# blur(k=3)
 # embossing(k=2)
 # sharpening()
 # gaussian_blur()
