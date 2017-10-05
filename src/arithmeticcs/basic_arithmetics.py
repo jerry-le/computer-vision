@@ -48,5 +48,5 @@ def multiple(input, factor):
 
 # show_origin_image(INPUT)
 # add(INPUT, 100)
-subtract(INPUT, 50)
+# subtract(INPUT, 50)
 # multiple(INPUT, 10)

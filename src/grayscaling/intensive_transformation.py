@@ -13,9 +13,9 @@ import cv2
 import numpy as np
 from __utils__.general import show_image
 
-image = cv2.imread('../../images/image.jpg')
-image_intensive = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-for pixel in np.nditer(image_intensive, op_flags=['readwrite']):
-    pixel[...] = 255 - pixel if 255 - pixel > 0 else 0
 
-show_image(image_intensive)
+def intensive(image):
+    out = np.copy(image)
+    for pixel in np.nditer(out, op_flags=['readwrite']):
+        pixel[...] = 255 - pixel if 255 - pixel > 0 else 0
+    return out
