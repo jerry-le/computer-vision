@@ -31,6 +31,7 @@ labs
 # Pycached
 src/__utils__/__pycache__/
 src/spatial/__pycache__/
+/*.pyc
 
 
 # Mongo Explorer plugin:
