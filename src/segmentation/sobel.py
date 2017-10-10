@@ -7,6 +7,10 @@ from grayscaling.contrast_schetching import contrast_schetching
 from grayscaling.intensive_transformation import intensive
 from spatial.convolution import gaussian_blur
 
+'''
+Using sobel mask to derivative 2 side: vertical and horizontal
+'''
+
 SX = [[-1, -2, -1],
       [0, 0, 0],
       [1, 2, 1]]
@@ -68,4 +72,8 @@ G_1 = contrast_schetching(G).astype(np.uint8)
 GX_1 = contrast_schetching(GX).astype(np.uint8)
 GY_1 = contrast_schetching(GY).astype(np.uint8)
 
-show_image(np.hstack((input, image, GX_1, GY_1, G_1, threshold_G, G_2)))
+show_image(np.hstack((
+    np.vstack((input, image)),
+    np.vstack((GX_1, GY_1)),
+    np.vstack((G_1, threshold_G))
+)))
