@@ -45,4 +45,5 @@ def opencv_rotate():
     dst = cv2.warpAffine(image, M, (cols, rows))
     show_image(dst)
 
-opencv_rotate()
+# opencv_rotate()
+manual_rotate()

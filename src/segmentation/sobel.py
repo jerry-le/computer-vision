@@ -2,7 +2,7 @@
 
 import cv2
 import numpy as np
-from __utils__.general import show_image
+from __utils__.general import show_image, pickle_dump_object, pickle_load_object
 from grayscaling.contrast_schetching import contrast_schetching
 from grayscaling.intensive_transformation import intensive
 from spatial.convolution import gaussian_blur
@@ -47,25 +47,52 @@ def threshold(image, threshold):
     return out
 
 
-input = cv2.imread("../../images/elena.jpg", 0)
+def calculate_gradient_magnitude(input):
+    # Remove noise by gaussian blur
+    image = gaussian_blur(input)
 
-# Remove noise by gaussian blur
-image = gaussian_blur(input)
+    # calculate the derivative of x and y
+    GX = calculate_convolution(image, SX)
+    GY = calculate_convolution(image, SY)
 
-# calculate the derivative of x and y
-GX = calculate_convolution(image, SX)
-GY = calculate_convolution(image, SY)
+    # threshold
+    G = np.sqrt(np.square(GX) + np.square(GY))
+    return G
 
-# threshold
-G = np.sqrt(np.square(GX) + np.square(GY))
-threshold_G = threshold(G, 100)
 
-# intensive transform G
-G_2 = intensive(threshold_G)
+def main():
+    input = cv2.imread("../../images/elena.jpg", 0)
 
-# convert back to gray channel
-G_1 = contrast_schetching(G).astype(np.uint8)
-GX_1 = contrast_schetching(GX).astype(np.uint8)
-GY_1 = contrast_schetching(GY).astype(np.uint8)
+    # Remove noise by gaussian blur
+    image = gaussian_blur(input)
 
-show_image(np.hstack((input, image, GX_1, GY_1, G_1, threshold_G, G_2)))
+    # calculate the derivative of x and y
+    GX = calculate_convolution(image, SX)
+    GY = calculate_convolution(image, SY)
+
+    # threshold
+    G = np.sqrt(np.square(GX) + np.square(GY))
+    threshold_G = threshold(G, 100)
+
+    # intensive transform G
+    G_2 = intensive(threshold_G)
+
+    # convert back to gray channel
+    G_1 = contrast_schetching(G).astype(np.uint8)
+    GX_1 = contrast_schetching(GX).astype(np.uint8)
+    GY_1 = contrast_schetching(GY).astype(np.uint8)
+
+    # stack result
+    res = np.hstack((input, image, GX_1, GY_1, G_1, threshold_G, G_2))
+
+    # pickle_dump_object(res, "sobel_result.pickle")
+
+    show_image(res)
+
+
+def show_result_by_file():
+    res = pickle_load_object('sobel_result.pickle')
+    show_image(res)
+
+main()
+# show_result_by_file()

@@ -25,7 +25,7 @@ def scaling(image, scale=1):
     return out
 
 image = cv2.imread('../../images/shape.png', 0)
-scale = 0.25
+scale = 2
 
 out = scaling(image, scale=scale)
 show_image(out, name='output')
