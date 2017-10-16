@@ -1,98 +1,105 @@
 # Author: KhanhLQ
 
-import cv2
 import numpy as np
-from __utils__.general import show_image, pickle_dump_object, pickle_load_object
-from grayscaling.contrast_schetching import contrast_schetching
-from grayscaling.intensive_transformation import intensive
-from spatial.convolution import gaussian_blur
-
-SX = [[-1, -2, -1],
-      [0, 0, 0],
-      [1, 2, 1]]
-
-SY = [[-1, 0, 1],
-      [-2, 0, 2],
-      [-1, 0, 1]]
 
 
-def calculate_convolution(image, mask):
-    height = image.shape[0]
-    width = image.shape[1]
-    k = (len(mask) - 1) / 2
-    k = int(k)
+class SobelDetectionEdge:
+    def __init__(self, img, Sx=None, Sy=None, threshold=None):
+        self.img = img
+        self.Sx = Sx
+        self.Sy = Sy
+        self.threshold = threshold
+        self.Gx = None
+        self.Gy = None
+        self.G = None
 
-    # initialize the result
-    out = np.zeros((height, width))
+        if threshold is None:
+            self.threshold = 100
 
-    # rendering
-    for i in range(k, height - k):
-        for j in range(k, width - k):
-            sum = 0
-            for m in range(-k, k + 1):
-                for n in range(-k, k + 1):
-                    sum = sum + image[i + m][j + n] * mask[k + m][k + n]
-            out[i][j] = sum
-    return out
+        if Sx is None:
+            self.Sx = [[-1, -2, -1],
+                       [0, 0, 0],
+                       [1, 2, 1]]
 
+        if Sy is None:
+            self.Sy = [[-1, 0, 1],
+                       [-2, 0, 2],
+                       [-1, 0, 1]]
 
-def threshold(image, threshold):
-    out = np.copy(image)
-    for pixel in np.nditer(out, op_flags=['readwrite']):
-        if pixel > threshold:
-            pixel[...] = 255
+    def get_gradient_of_x(self):
+        """
+        Calculate the gradient of x by convolution image with Sx
+        :return:  Matrix of float
+        """
+        if self.Gx is None:
+            self.set_gradient_of_x()
+        return self.Gx
+
+    def get_gradient_of_y(self):
+        """
+        Calculate the gradient of y by convolution image with Sy
+        :return:  Matrix of float
+        """
+        if self.Gy is None:
+            self.set_gradient_of_y()
+        return self.Gy
+
+    def get_gradient_magnitude(self):
+        """
+        Check if gradient of x and y exist then set the magnitude
+        :return:
+        """
+        if self.Gx is not None and self.Gy is not None:
+            self.set_gradient_magnitude()
         else:
-            pixel[...] = 0
-    out = out.astype(np.uint8)
-    return out
+            self.set_gradient_of_x()
+            self.set_gradient_of_y()
+            self.set_gradient_magnitude()
+        return self.G
 
+    def get_gradient_magnitude_after_thresholding(self):
+        return self.thresholding(self.img, self.threshold)
 
-def calculate_gradient_magnitude(input):
-    # Remove noise by gaussian blur
-    image = gaussian_blur(input)
+    def set_gradient_of_x(self):
+        self.Gx = self.calculate_convolution(self.img, self.Sx)
 
-    # calculate the derivative of x and y
-    GX = calculate_convolution(image, SX)
-    GY = calculate_convolution(image, SY)
+    def set_gradient_of_y(self):
+        self.Gy = self.calculate_convolution(self.img, self.Sy)
 
-    # threshold
-    G = np.sqrt(np.square(GX) + np.square(GY))
-    return G
+    def set_gradient_magnitude(self):
+        self.G = np.sqrt(np.square(self.Gx) + np.square(self.Gy))
 
+    def sobel(self):
+        self.set_gradient_of_x()
+        self.set_gradient_of_y()
+        self.set_gradient_magnitude()
+        return self.thresholding(image=self.G, threshold=self.threshold)
 
-def main():
-    input = cv2.imread("../../images/elena.jpg", 0)
+    @staticmethod
+    def calculate_convolution(image, mask):
+        height, width = image.shape
+        k = int((len(mask) - 1) / 2)
 
-    # Remove noise by gaussian blur
-    image = gaussian_blur(input)
+        # initialize the result
+        out = np.zeros((height, width))
 
-    # calculate the derivative of x and y
-    GX = calculate_convolution(image, SX)
-    GY = calculate_convolution(image, SY)
+        # rendering
+        for i in range(k, height - k):
+            for j in range(k, width - k):
+                sum = 0
+                for m in range(-k, k + 1):
+                    for n in range(-k, k + 1):
+                        sum = sum + image[i + m][j + n] * mask[k + m][k + n]
+                out[i][j] = sum
+        return out
 
-    # threshold
-    G = np.sqrt(np.square(GX) + np.square(GY))
-    threshold_G = threshold(G, 100)
-
-    # intensive transform G
-    G_2 = intensive(threshold_G)
-
-    # convert back to gray channel
-    G_1 = contrast_schetching(G).astype(np.uint8)
-    GX_1 = contrast_schetching(GX).astype(np.uint8)
-    GY_1 = contrast_schetching(GY).astype(np.uint8)
-
-    # stack result
-    res = np.hstack((input, image, GX_1, GY_1, G_1, threshold_G, G_2))
-
-    # pickle_dump_object(res, "sobel_result.pickle")
-
-    show_image(res)
-
-
-def show_result_by_file():
-    res = pickle_load_object('sobel_result.pickle')
-    show_image(res)
-
-main()
-# show_result_by_file()
+    @staticmethod
+    def thresholding(image, threshold):
+        out = np.copy(image)
+        for pixel in np.nditer(out, op_flags=['readwrite']):
+            if pixel > threshold:
+                pixel[...] = 255
+            else:
+                pixel[...] = 0
+        out = out.astype(np.uint8)
+        return out

@@ -1,43 +1,51 @@
-import cv2
 import numpy as np
-from __utils__.general import show_image
 
 
-def manual_histogram_equalization(image):
-    # Calc the histogram of image
-    histogram = np.zeros(256, dtype=np.int32)
-    for pixel in np.nditer(image):
-        histogram[pixel] += 1
+class HistogramEqualization:
+    def __init__(self, img=None):
+        self.img = img
+        self.max_gray_level = np.iinfo(self.img.dtype).max + 1
+        self.histogram = np.zeros(self.max_gray_level, dtype=np.int32)
+        self.histogram_cumsum = np.zeros(self.max_gray_level, dtype=np.int32)
+        self.possibility_of_occurrence = np.zeros(self.max_gray_level, dtype=np.float32)
+        self.possibility_of_occurrence_cumsum = np.zeros(self.max_gray_level, dtype=np.float32)
+        self.look_up_table = np.zeros(self.max_gray_level, dtype=np.int32)
+        self.img_result = np.copy(self.img)
+        pass
 
-    # Cum sum
-    max = image.shape[0] * image.shape[1]
-    for i in range(0, 255):
-        sum = histogram[i] + histogram[i + 1]
-        histogram[i + 1] = sum if sum < max else max
+    def compute_histogram(self):
+        for pixel in np.nditer(self.img):
+            self.histogram[pixel] += 1
+        pass
 
-    # Lookup Table
-    LUT = np.round((histogram / float(max)) * 255)
+    def compute_histogram_cumsum(self):
+        cumsum = 0
+        for i in range(0, self.max_gray_level):
+            cumsum += self.histogram[i]
+            self.histogram_cumsum[i] = cumsum
+        pass
 
-    # image object is immutable
-    origin_image = np.copy(image)
+    def compute_possibility_of_occurrence(self):
+        for i in range(0, self.max_gray_level):
+            p = float(self.histogram[i]) / self.histogram_cumsum[self.max_gray_level - 1]
+            self.possibility_of_occurrence[i] = p
 
-    # Transform origin image to histogram equalization image
-    for pixel in np.nditer(image, op_flags=['readwrite']):
-        pixel[...] = LUT[pixel]
+    def compute_possibility_of_occurrence_cumsum(self):
+        for i in range(0, self.max_gray_level):
+            p = float(self.histogram_cumsum[i]) / self.histogram_cumsum[self.max_gray_level - 1]
+            self.possibility_of_occurrence_cumsum[i] = p
 
-    # Stack to compare before and after equalizing
-    res = np.hstack((origin_image, image))
-    # use_calc_hist_in_cv2_function(image)
-    show_image(res)
+    def generate_look_up_table(self):
+        for i in range(0, self.max_gray_level):
+            self.look_up_table[i] = self.possibility_of_occurrence[i] * self.max_gray_level
+        pass
 
+    def mapping(self):
+        for pixel in np.nditer(self.img_result, op_flags=['readwrite']):
+            pixel[...] = self.look_up_table[pixel]
 
-def cv2_equalize_hist(image):
-    equ = cv2.equalizeHist(image)
-    res = np.hstack((image, equ))  # Stacking image side-by-side
-    show_image(res)
+    def get_result(self):
+        return self.img_result
 
-
-image = cv2.imread('../../images/wiki.jpg')
-image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
-# manual_histogram_equalization(image)
-# cv2_equalize_hist(image)
+    def get_possibility_of_occurrence(self):
+        return self.possibility_of_occurrence
