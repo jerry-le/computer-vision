@@ -33,14 +33,12 @@ class Otsu:
         for i in range(0, self.max_gray_level):
             sum += i * self.p[i]
             self.muy[i] = sum
-        pass
 
     def compute_omega(self):
         sum = 0
         for i in range(0, self.max_gray_level):
             sum += self.p[i]
             self.omega[i] = sum
-        pass
 
     def compute_sigma(self):
         for k in range(0, self.max_gray_level):
@@ -48,7 +46,6 @@ class Otsu:
             denominator = self.omega[k] * (1 - self.omega[k])
             quotient = numerator / denominator
             self.sigma[k] = 0 if math.isnan(quotient) else quotient
-        pass
 
     def get_threshold(self):
         return np.argmax(self.sigma)
