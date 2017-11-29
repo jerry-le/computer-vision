@@ -1,40 +1,46 @@
-# Computer vision demo
+# Computer vision - Python implementation
 
-## Content
+In this project, I've implemented some basic concept in Image Processing and Computer Vision (almost machine learning)
+
+## Basic concepts
 
 ### Load video
-* Load video from camera
-* Load video from file
+- [x] Load video from camera (video/load_video_from_camera.py)
+- [ ] Load video from file
 
-### Grayscaling
-* RBG to Gray 
-* Intensive transformation
-* Gamma correction
-* Contrast stretching
+### Gray Scaling
+- [x] RBG to Gray (grayscaling/grayscaling.py)
+- [x] Intensive transformation (grayscaling/intensive_transformation.py)
+- [x] Gamma correction (grayscaling/gamma_correction.py)
+- [x] Contrast stretching (grayscaling/contrast_schetching.py)
+- [x] Power law (grayscaling/power_law.py)
 
 ### Arithmetic operations
-* Addition
-* Subtraction
-* Multiple
-* Division
+- [x] Addition (arithmetics/basic_arithmetics.py)
+- [x] Subtraction (arithmetics/basic_arithmetics.py)
+- [x] Multiple(arithmetics/basic_arithmetics.py)
+- [x] Division(arithmetics/basic_arithmetics.py)
 
 ### Histogram
-* Visualize histogram chart
-* Histogram equalization (gray image, RGB image)
+- [x] Visualize histogram chart (histogram/plot_histogram.py)
+- [x] Histogram equalization (gray image, RGB image) (histogram/equalization.py)
+- [ ] Histogram matching (Histogram specialization)
 
-### Convolutions
-- Sobel mask to detect edge
-- Medium, min, max filtering
+### Image segmentation
+- [x] Sobel mask to detect edge (segmentation/sobel.py)
+- [x] Canny edge detection (segmentation/canny.py)
+- [x] Basic global thresholding (segmentation/thresholding/basic_global_thresholding.py)
+- [x] Otsu thresholding (segmentation/thresholding/outsu.py)
+- [x] Medium, min, max filtering (spatial/filtering.py)
 
 ### Geometric
-- Scaling image by Nearest Neighbor approach
-- Transforming image
-
+- [x] Scaling image by Nearest Neighbor approach (geometrix/scaling.py)
+- [x] Transforming image (geometrix/transform.py)
+- [x] Rotate image (geometrix/rotate.py)
 
 ## Mini projects
-* Sketch: detect edges from camera
+- [x] Sketch: detect edges from camera (miniproject/sketch.py)
 
 
 ## TODO
-- [] Histogram matching (histogram specialization)
-- [] Geometric image
+- [ ] Refactor code from function to class
