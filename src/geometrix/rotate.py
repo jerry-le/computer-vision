@@ -10,8 +10,7 @@ import math
 from __utils__.general import show_image
 
 
-def manual_rotate():
-    image = cv2.imread('../../images/brain.png', 0)
+def manual_rotate(image):
     height = image.shape[0]
     width = image.shape[1]
 
@@ -35,7 +34,8 @@ def manual_rotate():
                 out[x][y] = image[int(x_src)][int(y_src)]
             except Exception as e:
                 out[x][y] = 0
-    show_image(out)
+
+    return out
 
 
 def opencv_rotate():
@@ -45,5 +45,3 @@ def opencv_rotate():
     dst = cv2.warpAffine(image, M, (cols, rows))
     show_image(dst)
 
-# opencv_rotate()
-manual_rotate()
