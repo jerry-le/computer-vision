@@ -28,3 +28,5 @@ def load_video_from_camera():
     # When everything is done, release the capture
     cap.release()
     cv2.destroyAllWindows()
+
+load_video_from_camera()
