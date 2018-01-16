@@ -23,7 +23,7 @@ class TestBasicGlobalThreshold(TestCase):
         img = cv2.imread("../asserts/images/elena.jpg", 0)
         global_threshold = BasicGlobalThreshold()
         t = global_threshold.coverage_threshold(img, estimate_threshold=80)
-        print t
+        print(t)
         sobel = SobelDetectionEdge(img, threshold=t)
         out = sobel.sobel()
         show_image(out)
@@ -32,7 +32,7 @@ class TestBasicGlobalThreshold(TestCase):
         img = cv2.imread("../asserts/images/black_and_white.jpg", 0)
         global_threshold = BasicGlobalThreshold()
         t = global_threshold.coverage_threshold(img, estimate_threshold=80)
-        print t
+        print(t)
         sobel = SobelDetectionEdge(img, threshold=t)
         out = sobel.sobel()
         show_image(out)
