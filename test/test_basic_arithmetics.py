@@ -19,7 +19,7 @@ class TestBasicArithmetic(TestCase):
         try:
             gray_plus_10 = ba.add(img, 10)
         except Exception as e:
-            self.assertTrue(e, 'Image input must be array')
+            self.assertEqual(str(e), 'Image input must be gray')
 
     def test_subtract_gray_success(self):
         gray = cv2.imread(self.image_path, 0)
@@ -33,7 +33,7 @@ class TestBasicArithmetic(TestCase):
         self.assertEqual(gray_time_2.shape, gray.shape)
         self.assertTrue(np.average(gray) < np.average(gray_time_2))
 
-    def test_subtract_2_images(self):
+    def test_subtract_2_images_success(self):
         image_path1 = '../asserts/images/right.jpg'
         image_path2 = '../asserts/images/right_2.jpg'
         gray1 = cv2.imread(image_path1, 0)
@@ -41,3 +41,12 @@ class TestBasicArithmetic(TestCase):
         gray_diff = ba.subtract2images(gray1, gray2)
         self.assertTrue(gray_diff.shape, gray1.shape)
 
+    def test_subtract_2_images_with_different_size(self):
+        image_path1 = '../asserts/images/elena.jpg'
+        image_path2 = '../asserts/images/right.jpg'
+        gray1 = cv2.imread(image_path1, 0)
+        gray2 = cv2.imread(image_path2, 0)
+        try:
+            gray_diff = ba.subtract2images(gray1, gray2)
+        except Exception as e:
+            self.assertEqual(str(e), 'Images must be the same size')

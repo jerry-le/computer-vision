@@ -37,4 +37,8 @@ def multiple(gray, factor):
 def subtract2images(gray1, gray2):
     if len(gray1.shape) > 2 or len(gray2.shape) > 2:
         raise Exception("Images input must be gray")
+
+    if gray1.shape != gray2.shape:
+        raise Exception("Images must be the same size")
+
     return gray1 - gray2
