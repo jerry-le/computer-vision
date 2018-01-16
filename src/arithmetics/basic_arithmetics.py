@@ -32,3 +32,9 @@ def multiple(gray, factor):
     for pixel in np.nditer(gray, op_flags=['readwrite']):
         pixel[...] = pixel * factor if pixel * factor < 255 else 255
     return gray
+
+
+def subtract2images(gray1, gray2):
+    if len(gray1.shape) > 2 or len(gray2.shape) > 2:
+        raise Exception("Images input must be gray")
+    return gray1 - gray2

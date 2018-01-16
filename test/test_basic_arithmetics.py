@@ -32,3 +32,12 @@ class TestBasicArithmetic(TestCase):
         gray_time_2 = ba.multiple(gray, 2)
         self.assertEqual(gray_time_2.shape, gray.shape)
         self.assertTrue(np.average(gray) < np.average(gray_time_2))
+
+    def test_subtract_2_images(self):
+        image_path1 = '../asserts/images/right.jpg'
+        image_path2 = '../asserts/images/right_2.jpg'
+        gray1 = cv2.imread(image_path1, 0)
+        gray2 = cv2.imread(image_path2, 0)
+        gray_diff = ba.subtract2images(gray1, gray2)
+        self.assertTrue(gray_diff.shape, gray1.shape)
+
