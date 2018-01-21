@@ -8,7 +8,7 @@ import numpy as np
 # Author: KhanhLQ
 class TestHistogramEqualization(TestCase):
     def test_compute_histogram(self):
-        img = cv2.imread("../asserts/images/elena.jpg")
+        img = cv2.imread("../asserts/images/elena.jpg", 0)
         histogram = HistogramEqualization(img=img)
         histogram.compute_histogram()
         histogram.compute_histogram_cumsum()

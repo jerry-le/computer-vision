@@ -39,9 +39,9 @@ def manual_rotate(image):
 
 
 def opencv_rotate():
-    image = cv2.imread('../../images/brain.png', 0)
+    image = cv2.imread('../../asserts/images/elena.jpg', 0)
     rows, cols = image.shape
-    M = cv2.getRotationMatrix2D((rows/2, cols/2), 45, 1)
+    M = cv2.getRotationMatrix2D((rows/2, cols/2), 180, 1)
     dst = cv2.warpAffine(image, M, (cols, rows))
     show_image(dst)
 

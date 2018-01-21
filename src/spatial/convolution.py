@@ -61,10 +61,14 @@ def sharpening(image=None):
     show_image(res)
 
 
-def gaussian_blur(image):
-    mask = [[1, 2, 1],
-            [2, 4, 2],
-            [1, 2, 1]]
+def gaussian_blur(
+        image=None,
+        mask=[[1, 2, 1],
+              [2, 4, 2],
+              [1, 2, 1]]):
+    if image is None:
+        return None
+
     out = convolution(image, mask)
     return out
 
