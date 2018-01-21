@@ -3,7 +3,7 @@ import numpy as np
 from __utils__.general import show_image
 
 
-image = cv2.imread('../../images/nguocsang.jpg')
+image = cv2.imread('../../asserts/images/nguocsang.jpg')
 image_y_cr_cb = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
 
 # Equalize the histogram of Y channel

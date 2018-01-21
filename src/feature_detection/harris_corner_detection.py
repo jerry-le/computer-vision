@@ -18,3 +18,4 @@ def find_harris_conrners(image, block_size=2, ksize=5, k=0.04):
     image[dst > 0.01 * dst.max()] = [0, 0, 255]
     return image
 
+

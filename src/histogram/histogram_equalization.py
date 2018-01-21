@@ -16,7 +16,6 @@ class HistogramEqualization:
     def compute_histogram(self):
         for pixel in np.nditer(self.img):
             self.histogram[pixel] += 1
-        pass
 
     def compute_histogram_cumsum(self):
         cumsum = 0
@@ -27,7 +26,7 @@ class HistogramEqualization:
 
     def compute_possibility_of_occurrence(self):
         for i in range(0, self.max_gray_level):
-            p = float(self.histogram[i]) / self.histogram_cumsum[self.max_gray_level - 1]
+            p = float(self.histogram_cumsum[i]) / self.histogram_cumsum[self.max_gray_level - 1]
             self.possibility_of_occurrence[i] = p
 
     def compute_possibility_of_occurrence_cumsum(self):
@@ -45,6 +44,12 @@ class HistogramEqualization:
             pixel[...] = self.look_up_table[pixel]
 
     def get_result(self):
+        if self.img_result is None:
+            self.compute_histogram()
+            self.compute_histogram_cumsum()
+            self.compute_possibility_of_occurrence()
+            self.generate_look_up_table()
+            self.mapping()
         return self.img_result
 
     def get_possibility_of_occurrence(self):

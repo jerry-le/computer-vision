@@ -38,10 +38,50 @@ def manual_rotate(image):
     return out
 
 
-def opencv_rotate():
-    image = cv2.imread('../../images/brain.png', 0)
-    rows, cols = image.shape
-    M = cv2.getRotationMatrix2D((rows/2, cols/2), 45, 1)
-    dst = cv2.warpAffine(image, M, (cols, rows))
-    show_image(dst)
+def opencv_rotate(image=None, angle=None, scale=None):
+    if image is None:
+        raise Exception('Image cannot be None')
+    if angle is None:
+        raise Exception('Angle cannot be None')
+    if scale is None:
+        scale = 1
+    rows, cols, _ = image.shape
+    M = cv2.getRotationMatrix2D((rows / 2, cols / 2), angle, scale)
+    dst = cv2.warpAffine(image, M, (cols * 2, rows * 2))
+    return dst
 
+
+def rotate_without_cropped(image=None, angle=None, scale=None):
+    if image is None:
+        raise Exception('Image cannot be None')
+    if angle is None:
+        raise Exception('Angle cannot be None')
+    if scale is None:
+        scale = 1
+    height, width = image.shape[:2]
+
+    # Get rotation matrix for rotating around its center
+    center = (width / 2, height / 2)
+    rotation_mat = cv2.getRotationMatrix2D(center, angle, scale)
+
+    radians = math.radians(angle)
+    sin = math.sin(radians)
+    cos = math.cos(radians)
+    bound_w = int((height * abs(sin)) + (width * abs(cos)))
+    bound_h = int((height * abs(cos)) + (width * abs(sin)))
+
+    rotation_mat[0, 2] += ((bound_w / 2) - center[0])
+    rotation_mat[1, 2] += ((bound_h / 2) - center[1])
+
+    rotated_mat = cv2.warpAffine(image, rotation_mat, (bound_w, bound_h))
+    return rotated_mat
+
+
+if __name__ == '__main__':
+    image_path = '../../asserts/images/bird.png'
+    image = cv2.imread(image_path)
+
+    # rotated_image = opencv_rotate(image=image, angle=45, scale=1)
+    rotated_image = rotate_without_cropped(image=image, angle=45, scale=1)
+
+    show_image(rotated_image)
