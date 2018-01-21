@@ -1,5 +1,5 @@
 import cv2
-
+import numpy as np
 from __utils__.general import show_image
 
 
@@ -58,8 +58,13 @@ def convert_brg2individual_channel(image, channel):
         return R
 
 
-image = cv2.imread('../../images/elena.jpg')
+def convert_rgb(image, red, green, blue):
+    res = blue * image[:, :, 0] + green * image[:, :, 1] + red * image[:, :, 2]
+    return res.astype(np.uint8)
 
-show_image(
-    convert_brg2gray(image)
-)
+
+if __name__ == '__main__':
+    image_path = '../../asserts/images/flower.jpg'
+    img = cv2.imread(image_path)
+    luminance_img = convert_rgb(img, 0.299, 0.587, 0.114)
+    show_image(luminance_img)
