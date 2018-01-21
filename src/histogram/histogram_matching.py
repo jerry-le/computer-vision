@@ -54,8 +54,8 @@ if __name__ == '__main__':
     # imres = imres.astype(np.uint8)
     # show_image(np.hstack((img, imres)))
 
-    src_path = '../../asserts/images/source.jpg'
-    tint_path = '../../asserts/images/tint_target.jpg'
+    src_path = '../../asserts/images/building.png'
+    tint_path = '../../asserts/images/building2.png'
     imsrc = cv2.imread(src_path)
     imtint = cv2.imread(tint_path)
     imres = histspec(imsrc, imtint)
