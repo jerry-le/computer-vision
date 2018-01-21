@@ -1,7 +1,3 @@
-"""
-
-"""
-
 import cv2
 import numpy as np
 from __utils__.general import show_image
@@ -25,7 +21,8 @@ def transform(image, delta_x=0, delta_y=0):
     return out
 
 
-image = cv2.imread('../../images/elena.jpg', 0)
-out = transform(image, 100, -100)
-res = np.hstack((image, out))
-show_image(res)
+if __name__ == '__main__':
+    image = cv2.imread('../../asserts/images/elena.jpg', 0)
+    out = transform(image, 100, -100)
+    res = np.hstack((image, out))
+    show_image(res)
