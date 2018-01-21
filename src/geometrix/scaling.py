@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+from __utils__.general import show_image
 
 
 def scaling(image, scale=1, dst=None):
@@ -29,5 +30,22 @@ def scaling(image, scale=1, dst=None):
             x_source = int(float_x + 0.5)
             y_source = int(float_y + 0.5)
             out[x][y] = gray[x_source][y_source]
-    dst = out
     return out
+
+
+def opencv_scaling(image, scale=1):
+    height, width = image.shape[:2]
+    new_height = scale * height
+    new_width = scale * width
+    res = cv2.resize(image, (new_width, new_height), interpolation=cv2.INTER_CUBIC)
+    return res
+
+
+if __name__ == '__main__':
+    image_path = '../../asserts/images/bird.png'
+    image = cv2.imread(image_path)
+
+    # scaled_image = scaling(image, 4)
+    scaled_image = opencv_scaling(image, 3)
+
+    show_image(scaled_image)
