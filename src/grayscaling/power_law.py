@@ -11,6 +11,7 @@ def power_law(image, c=1, gamma=1):
     return out
 
 
-image = cv2.imread('../../images/elena.jpg', 0)
-res = np.hstack((image, power_law(image, c=1, gamma=1.1)))
-show_image(res)
+if __name__ == '__main__':
+    image = cv2.imread('../../asserts/images/elena.jpg', 0)
+    res = np.hstack((image, power_law(image, c=1, gamma=1.1)))
+    show_image(res)

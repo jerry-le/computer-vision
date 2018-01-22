@@ -17,5 +17,12 @@ from __utils__.general import show_image
 def intensive(image):
     out = np.copy(image)
     for pixel in np.nditer(out, op_flags=['readwrite']):
-        pixel[...] = 255 - pixel if 255 - pixel > 0 else 0
+        pixel[...] = 255 - pixel
     return out
+
+
+if __name__ == '__main__':
+    image_path = '../../asserts/images/flower.jpg'
+    img = cv2.imread(image_path)
+    intensive_img = intensive(img)
+    show_image(intensive_img)
