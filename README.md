@@ -1,6 +1,6 @@
 # Computer vision - Python implementation
 
-In this project, I've implemented some basic concept in Image Processing and Computer Vision (almost machine learning)
+In this project, I've implemented some basic concepts in Image Processing and Computer Vision
 
 ## Basic concepts
 
@@ -24,7 +24,7 @@ In this project, I've implemented some basic concept in Image Processing and Com
 ### Histogram
 - [x] Visualize histogram chart (histogram/plot_histogram.py)
 - [x] Histogram equalization (gray image, RGB image) (histogram/equalization.py)
-- [ ] Histogram matching (Histogram specialization)
+- [x] Histogram matching (Histogram specialization)
 
 ### Image segmentation
 - [x] Sobel mask to detect edge (segmentation/sobel.py)
